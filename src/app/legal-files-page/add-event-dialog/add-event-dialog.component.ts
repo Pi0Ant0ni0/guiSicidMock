@@ -1,7 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'; import { SaveEventCommand } from 'src/app/api/model/legal-files.model';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'; import {LegalFileObjectDTO, SaveEventCommand} from 'src/app/api/model/legal-files.model';
 import { LegalFilesService } from 'src/app/api/services/legal-files.service';
+import {OBJECTS} from "../../api/model/OBJECT_CODES";
 
 @Component({
   selector: 'app-add-event-dialog',
@@ -9,7 +10,8 @@ import { LegalFilesService } from 'src/app/api/services/legal-files.service';
   styleUrls: ['./add-event-dialog.component.css']
 })
 export class AddEventDialogComponent {
-  public addLegalFileForm: FormGroup;
+  public addEventForm: FormGroup;
+  public objects:LegalFileObjectDTO[] = OBJECTS;
 
   constructor(
     private _dialogRef: MatDialogRef<AddEventDialogComponent>,
@@ -18,8 +20,7 @@ export class AddEventDialogComponent {
     private _formBuilder: FormBuilder
   ) {
 
-    this.addLegalFileForm = this._formBuilder.group({
-      id: [null, Validators.required],
+    this.addEventForm = this._formBuilder.group({
       date: [null, Validators.required],
       event: [null, Validators.required],
       registrationDate: [null, Validators.required],
@@ -34,22 +35,27 @@ export class AddEventDialogComponent {
           object: [null, Validators.required]
         })
       })
-    })
+    });
+    this.addEventForm.get('legalFile.object.object')!.valueChanges.subscribe((object: LegalFileObjectDTO)=>{
+      console.log("value changed");
+      this.addEventForm.get("legalFile.object.objectCode")!.patchValue(object.objectCode);
+    });
   }
   public close() {
     this._dialogRef.close();
   }
 
   public save() {
-    console.log(this.addLegalFileForm.value);
-    if (this.addLegalFileForm.valid) {
+    console.log(this.addEventForm.value);
+    if (this.addEventForm.valid) {
       let command: SaveEventCommand = new SaveEventCommand();
-      Object.assign(command, this.addLegalFileForm.value);
+      Object.assign(command, this.addEventForm.value);
       console.log(command);
       this._legalFilesService.addEventToLegalFile(this.legalFileId, command).subscribe(() => {
-        this.addLegalFileForm.disable();
+        this.addEventForm.disable();
       });
     }
   }
 
+  protected readonly OBJECTS = OBJECTS;
 }

@@ -1,39 +1,45 @@
 <h1 mat-dialog-title>Aggiungi fascicolo</h1>
 <div mat-dialog-content>
   <div [formGroup]="addLegalFileForm">
-    <mat-form-field appearance="fill">
-      <mat-label>Id</mat-label>
-      <input matInput formControlName="id" type="number" />
-    </mat-form-field>
-    <mat-form-field appearance="fill">
+
+    <mat-form-field appearance="fill" class="formField">
       <mat-label>nrg</mat-label>
       <input matInput formControlName="nrg" type="text" />
     </mat-form-field>
-    <mat-form-field appearance="fill">
+
+    <mat-form-field appearance="fill" class="formField">
       <mat-label>office</mat-label>
       <input matInput formControlName="office" type="text" />
     </mat-form-field>
-    <mat-form-field appearance="fill">
+
+    <mat-form-field appearance="fill" class="formField">
       <mat-label>section</mat-label>
       <input matInput formControlName="section" type="text" />
     </mat-form-field>
-    <mat-form-field appearance="fill">
+
+    <mat-form-field appearance="fill" class="formField">
       <mat-label>judge</mat-label>
       <input matInput formControlName="judge" type="text" />
     </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>objectCode</mat-label>
-      <input matInput formControlName="objectCode" type="text" />
+
+    <mat-form-field appearance="fill" class="formField">
+      <mat-label>Oggetto</mat-label>
+      <mat-select formControlName="objectDescription">
+        <div *ngFor="let object of objects">
+        <mat-option [value]="object">{{object.object}}</mat-option>
+        </div>
+      </mat-select>
     </mat-form-field>
-    <mat-form-field appearance="fill">
-      <mat-label>objectDescription</mat-label>
-      <input matInput formControlName="objectDescription" type="text" />
+
+    <mat-form-field appearance="fill" class="formField">
+      <mat-label>objectCode</mat-label>
+      <input matInput formControlName="objectCode" type="text" readonly="true"/>
     </mat-form-field>
   </div>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="save()" [disabled]="!addLegalFileForm.valid">
+  <button mat-flat-button color="accent" (click)="save()" [disabled]="!addLegalFileForm.valid">
     Salva
   </button>
-  <button mat-button (click)="close()">Chiudi</button>
+  <button mat-flat-button color="accent" (click)="close()">Chiudi</button>
 </div>

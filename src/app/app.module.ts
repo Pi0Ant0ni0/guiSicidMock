@@ -21,6 +21,8 @@ import { AddEventDialogComponent } from './legal-files-page/add-event-dialog/add
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { EventsTableDialogComponent } from './legal-files-page/events-table-dialog/events-table-dialog.component';
+import {MatSelectModule} from "@angular/material/select";
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { EventsTableDialogComponent } from './legal-files-page/events-table-dial
     MatFormFieldModule,
     ReactiveFormsModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatSelectModule,
+    MatToolbarModule
   ],
   providers: [LegalFilesService, HttpClient],
   bootstrap: [AppComponent]

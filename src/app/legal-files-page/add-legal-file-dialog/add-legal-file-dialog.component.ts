@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
 import {LegalFilesService} from "../../api/services/legal-files.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {LegalFileDTO, SaveLegalFilesCommand} from "../../api/model/legal-files.model";
+import {LegalFileObjectDTO, SaveLegalFilesCommand} from "../../api/model/legal-files.model";
+import {OBJECTS} from "../../api/model/OBJECT_CODES";
 
 @Component({
   selector: 'app-add-legal-file-dialog',
@@ -12,6 +13,7 @@ import {LegalFileDTO, SaveLegalFilesCommand} from "../../api/model/legal-files.m
 export class AddLegalFileDialogComponent{
 
   public addLegalFileForm: FormGroup ;
+  public objects:LegalFileObjectDTO[] = OBJECTS;
 
   constructor(
     private _dialogRef: MatDialogRef<AddLegalFileDialogComponent>,
@@ -19,17 +21,19 @@ export class AddLegalFileDialogComponent{
     private _formBuilder: FormBuilder
     ) {
     this.addLegalFileForm = this._formBuilder.group({
-      id: [null,Validators.required],
       nrg: [null,Validators.required],
       office: [null,Validators.required],
       section: [null,Validators.required],
       judge: [null,Validators.required],
       objectCode: [null,Validators.required],
       objectDescription: [null,Validators.required]
-    })
+    });
+    this.addLegalFileForm.get("objectDescription")?.valueChanges.subscribe((object: LegalFileObjectDTO)=>{
+      this.addLegalFileForm.get("objectCode")?.patchValue(object.objectCode);
+    });
   }
   public close(){
-    this._dialogRef.close();
+    this._dialogRef.close(false);
   }
   public save(){
     if(this.addLegalFileForm.valid){
@@ -40,7 +44,7 @@ export class AddLegalFileDialogComponent{
         objectCode: this.addLegalFileForm.value.objectCode
       }
       this._legalFilesService.saveLegalFile(command).subscribe(()=>{
-        this.addLegalFileForm.disable();
+        this._dialogRef.close(true);
       });
     }
   }

@@ -1,13 +1,10 @@
 <h1 mat-dialog-title>Aggiungi Evento</h1>
 <div mat-dialog-content>
-  <div [formGroup]="addLegalFileForm">
-    <mat-form-field appearance="fill">
-      <mat-label>Id</mat-label>
-      <input matInput formControlName="id" type="number" />
-    </mat-form-field>
-    <mat-form-field appearance="fill">
+  <div [formGroup]="addEventForm">
+
+    <mat-form-field appearance="fill" class="formField">
       <mat-label>Choose a date</mat-label>
-      <input matInput [matDatepicker]="datePicker" formControlName="date" />
+      <input matInput [matDatepicker]="datePicker" formControlName="date"/>
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="datePicker">
         <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
@@ -15,12 +12,12 @@
       <mat-datepicker #datePicker></mat-datepicker>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" class="formField">
       <mat-label>event</mat-label>
-      <input matInput formControlName="event" type="text" />
+      <input matInput formControlName="event" type="text"/>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" class="formField">
       <mat-label>Registration Date</mat-label>
       <input
         matInput
@@ -35,42 +32,51 @@
     </mat-form-field>
 
     <div formGroupName="legalFile">
-      <mat-form-field appearance="fill">
+      <mat-toolbar color="primary" style="justify-content: center; margin-bottom: 1%; margin-top: 3%">
+        <span>Fascicolo</span>
+      </mat-toolbar>
+      <mat-form-field appearance="fill" class="formField">
         <mat-label>Id</mat-label>
-        <input matInput formControlName="id" type="number" />
+        <input matInput formControlName="id" type="number"/>
       </mat-form-field>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" class="formField">
         <mat-label>nrg</mat-label>
-        <input matInput formControlName="nrg" type="text" />
+        <input matInput formControlName="nrg" type="text"/>
       </mat-form-field>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" class="formField">
         <mat-label>office</mat-label>
-        <input matInput formControlName="office" type="text" />
+        <input matInput formControlName="office" type="text"/>
       </mat-form-field>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" class="formField">
         <mat-label>section</mat-label>
-        <input matInput formControlName="section" type="text" />
+        <input matInput formControlName="section" type="text"/>
       </mat-form-field>
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" class="formField">
         <mat-label>judge</mat-label>
-        <input matInput formControlName="judge" type="text" />
+        <input matInput formControlName="judge" type="text"/>
       </mat-form-field>
+
       <div formGroupName="object">
-        <mat-form-field appearance="fill">
-          <mat-label>objectCode</mat-label>
-          <input matInput formControlName="objectCode" type="text" />
+        <mat-form-field appearance="fill" class="formField">
+          <mat-label>Oggetto</mat-label>
+          <mat-select formControlName="object">
+            <div *ngFor="let object of objects">
+              <mat-option [value]="object">{{object.object}}</mat-option>
+            </div>
+          </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label>objectDescription</mat-label>
-          <input matInput formControlName="object" type="text" />
+
+        <mat-form-field appearance="fill" class="formField">
+          <mat-label>objectCode</mat-label>
+          <input matInput formControlName="objectCode" type="text" [readonly]="true"/>
         </mat-form-field>
       </div>
     </div>
   </div>
   <div mat-dialog-actions>
-    <button mat-button (click)="save()" [disabled]="!addLegalFileForm.valid">
+    <button mat-flat-button color="accent" (click)="save()" [disabled]="!addEventForm.valid">
       Salva
     </button>
-    <button mat-button (click)="close()">Chiudi</button>
+    <button mat-flat-button color="accent"  (click)="close()">Chiudi</button>
   </div>
 </div>

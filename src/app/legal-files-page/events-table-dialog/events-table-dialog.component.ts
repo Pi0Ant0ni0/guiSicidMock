@@ -3,7 +3,6 @@ import { DialogRef } from '@angular/cdk/dialog';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable, of } from 'rxjs';
 import { EventDTO } from 'src/app/api/model/legal-files.model';
 import { TableAction, TableColumn } from 'src/app/api/model/table-model';
 import { LegalFilesService } from 'src/app/api/services/legal-files.service';
@@ -39,6 +38,10 @@ export class EventsTableDialogComponent {
   }
 
   public get columns(): string[] {
-    return [...this.itemTableProperties.map(c => c.columnLabel), "actions"];
+    if(this.actions.length>0) {
+      return [...this.itemTableProperties.map(c => c.columnLabel), "actions"];
+    }else{
+      return  this.itemTableProperties.map(c=>c.columnLabel);
+    }
   }
 }

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { LegalFileDTO, LegalFileTableItem } from "../../api/model/legal-files.model";
 import { LegalFilesService } from "../../api/services/legal-files.service";
-import { map, Observable, of } from "rxjs";
+import {Observable} from "rxjs";
 import { DataSource } from "@angular/cdk/collections";
 import { MatTableDataSource } from "@angular/material/table";
 import { TableAction, TableColumn } from 'src/app/api/model/table-model';
@@ -25,8 +25,9 @@ const _columns: TableColumn[] = [
   templateUrl: './legal-files-table.component.html',
   styleUrls: ['./legal-files-table.component.css']
 })
-export class LegalFilesTableComponent {
+export class LegalFilesTableComponent implements OnInit{
 
+  @Input() updateTable!: Observable<any> ;
   public dataSource!: DataSource<LegalFileTableItem>;
   public itemTableProperties: TableColumn[] = _columns;
   public actions: TableAction<LegalFileTableItem>[] = [
@@ -45,9 +46,7 @@ export class LegalFilesTableComponent {
   ]
 
   constructor(private _legalFilesService: LegalFilesService, private _dialogService: MatDialog) {
-    this._legalFilesService.listLegalFiles().subscribe((legalFiles: LegalFileDTO[]) => {
-      this.dataSource = new MatTableDataSource(legalFiles.map(legalFile => new LegalFileTableItem(legalFile)));
-    });
+    this._getTableItems();
   }
 
   public get columns(): string[] {
@@ -56,5 +55,18 @@ export class LegalFilesTableComponent {
     } else {
       return this.itemTableProperties.map(c => c.columnLabel);
     }
+  }
+
+  ngOnInit(): void {
+    this.updateTable.subscribe(()=>{
+      this._getTableItems();
+    });
+  }
+
+
+  private _getTableItems(){
+    this._legalFilesService.listLegalFiles().subscribe((legalFiles: LegalFileDTO[]) => {
+      this.dataSource = new MatTableDataSource(legalFiles.map(legalFile => new LegalFileTableItem(legalFile)));
+    });
   }
 }

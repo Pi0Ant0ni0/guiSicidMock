@@ -1,0 +1,8 @@
+{
+  "/legalfiles": {
+    "target": "http://172.31.1.223:30000",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}
