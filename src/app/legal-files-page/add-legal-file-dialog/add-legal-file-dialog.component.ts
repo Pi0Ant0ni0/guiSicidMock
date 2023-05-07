@@ -2,14 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from "@angular/material/dialog";
 import {LegalFilesService} from "../../api/services/legal-files.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {LegalFilesDTO, SaveLegalFilesCommand} from "../../api/model/legal-files.model";
+import {LegalFileDTO, SaveLegalFilesCommand} from "../../api/model/legal-files.model";
 
 @Component({
   selector: 'app-add-legal-file-dialog',
   templateUrl: './add-legal-file-dialog.component.html',
   styleUrls: ['./add-legal-file-dialog.component.css']
 })
-export class AddLegalFileDialogComponent implements  OnInit{
+export class AddLegalFileDialogComponent{
 
   public addLegalFileForm: FormGroup ;
 
@@ -39,14 +39,11 @@ export class AddLegalFileDialogComponent implements  OnInit{
         object: this.addLegalFileForm.value.objectDescription,
         objectCode: this.addLegalFileForm.value.objectCode
       }
-      this._legalFilesService.saveLegalFiles(command).subscribe(()=>{
+      this._legalFilesService.saveLegalFile(command).subscribe(()=>{
         this.addLegalFileForm.disable();
       });
     }
   }
 
-  ngOnInit(): void {
-
-  }
 
 }

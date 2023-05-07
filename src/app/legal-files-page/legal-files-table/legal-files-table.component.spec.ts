@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { LegalFilesTableComponent } from './legal-files-table.component';
-import {MatTableModule} from '@angular/material/table';
 
 describe('LegalFilesTableComponent', () => {
   let component: LegalFilesTableComponent;
@@ -8,8 +8,7 @@ describe('LegalFilesTableComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [LegalFilesTableComponent],
-      imports:[MatTableModule]
+      declarations: [LegalFilesTableComponent]
     });
     fixture = TestBed.createComponent(LegalFilesTableComponent);
     component = fixture.componentInstance;

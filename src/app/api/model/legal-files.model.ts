@@ -1,46 +1,48 @@
 
-export class LegalFilesDTO{
-  // @ts-ignore
-  public id:number;
-  // @ts-ignore
-  public nrg:string;
-  // @ts-ignore
-  public section:string;
-
-  //@ts-ignore
-  public office:string;
-  // @ts-ignore
-  public judge:string;
-  // @ts-ignore
-
-  public object:LegalFileObjectDTO;
+export class LegalFileDTO {
+  public id!:number;
+  public nrg!:string;
+  public section!:string;
+  public office!:string;
+  public judge!:string;
+  public object!:LegalFileObjectDTO;
 }
 
 export class LegalFileObjectDTO{
-  // @ts-ignore
+  public objectCode!:string;
+  public object!:string;
+}
 
+export class LegalFileTableItem {
+  public id:number;
+  public nrg:string;
+  public section:string;
+  public office:string;
+  public judge:string;
   public objectCode:string;
-  // @ts-ignore
-
   public object:string;
+
+
+  constructor(legalFileDTO:LegalFileDTO) {
+    this.id = legalFileDTO.id;
+    this.nrg = legalFileDTO.nrg;
+    this.section = legalFileDTO.section;
+    this.office = legalFileDTO.office;
+    this.judge = legalFileDTO.judge;
+    this.objectCode = legalFileDTO.object.objectCode;
+    this.object = legalFileDTO.object.object;
+  }
 }
 
-export class SaveLegalFilesCommand extends LegalFilesDTO{
-
-}
+export class SaveLegalFilesCommand extends LegalFileDTO{}
 
 
 export class EventDTO{
-  // @ts-ignore
-  public id:number;
-  // @ts-ignore
-  public date: Date;
-  // @ts-ignore
-  public event:string;
-  // @ts-ignore
-  public registrationDate:Date;
-  // @ts-ignore
-  public legalFile:LegalFilesDTO;
+  public id!:number;
+  public date!: Date;
+  public event!:string;
+  public registrationDate!:Date;
+  public legalFile!:LegalFileDTO;
 }
 
 export class SaveEventCommand extends EventDTO{}

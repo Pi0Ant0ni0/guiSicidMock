@@ -1,0 +1,76 @@
+<h1 mat-dialog-title>Aggiungi Evento</h1>
+<div mat-dialog-content>
+  <div [formGroup]="addLegalFileForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Id</mat-label>
+      <input matInput formControlName="id" type="number" />
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="datePicker" formControlName="date" />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="datePicker">
+        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+      </mat-datepicker-toggle>
+      <mat-datepicker #datePicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>event</mat-label>
+      <input matInput formControlName="event" type="text" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Registration Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="registrationDatePicker"
+        formControlName="registrationDate"
+      />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="registrationDatePicker">
+        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+      </mat-datepicker-toggle>
+      <mat-datepicker #registrationDatePicker></mat-datepicker>
+    </mat-form-field>
+
+    <div formGroupName="legalFile">
+      <mat-form-field appearance="fill">
+        <mat-label>Id</mat-label>
+        <input matInput formControlName="id" type="number" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>nrg</mat-label>
+        <input matInput formControlName="nrg" type="text" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>office</mat-label>
+        <input matInput formControlName="office" type="text" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>section</mat-label>
+        <input matInput formControlName="section" type="text" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>judge</mat-label>
+        <input matInput formControlName="judge" type="text" />
+      </mat-form-field>
+      <div formGroupName="object">
+        <mat-form-field appearance="fill">
+          <mat-label>objectCode</mat-label>
+          <input matInput formControlName="objectCode" type="text" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>objectDescription</mat-label>
+          <input matInput formControlName="object" type="text" />
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="save()" [disabled]="!addLegalFileForm.valid">
+      Salva
+    </button>
+    <button mat-button (click)="close()">Chiudi</button>
+  </div>
+</div>
